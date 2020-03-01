@@ -7,7 +7,9 @@
 
 import UIKit
 import Highlightr
-import ActionSheetPicker_3_0
+#if false // hh: replace this
+  import ActionSheetPicker_3_0
+#endif
 
 enum pickerSource : Int {
     case theme = 0
@@ -73,6 +75,7 @@ class SampleCode: UIViewController
         let indexOrNil = languages.index(of: languageName.text!.lowercased())
         let index = (indexOrNil == nil) ? 0 : indexOrNil!
         
+      #if false // TODO(hh): replace me
         ActionSheetStringPicker.show(withTitle: "Pick a Language",
                                      rows: languages,
                                      initialSelection: index,
@@ -88,7 +91,7 @@ class SampleCode: UIViewController
             },
                                      cancel: nil,
                                                     origin: toolBar)
-
+      #endif
     }
 
     @IBAction func performanceTest(_ sender: AnyObject)
@@ -130,6 +133,7 @@ class SampleCode: UIViewController
         let indexOrNil = themes.index(of: themeName.text!.lowercased())
         let index = (indexOrNil == nil) ? 0 : indexOrNil!
         
+      #if false // TODO(hh): replace me
         ActionSheetStringPicker.show(withTitle: "Pick a Theme",
                                      rows: themes,
                                      initialSelection: index,
@@ -142,7 +146,7 @@ class SampleCode: UIViewController
             },
                                      cancel: nil,
                                                     origin: toolBar)
-        
+      #endif
     }
     
     @IBAction func hideKeyboard(_ sender: AnyObject?)
