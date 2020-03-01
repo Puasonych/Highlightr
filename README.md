@@ -1,13 +1,52 @@
-# Highlightr
+# Highlightr - SPM
+
+[![License](https://img.shields.io/cocoapods/l/Highlightr.svg?style=flat)](http://cocoapods.org/pods/Highlightr)
+[![Platform](https://img.shields.io/cocoapods/p/Highlightr.svg?style=flat)](http://cocoapods.org/pods/Highlightr)
 
 *SPM Branch*: 2020-03-01: WIP to convert this to SwiftPM.
 
-Highlightr is an iOS & macOS syntax highlighter built with Swift. It uses [highlight.js](https://highlightjs.org/) as it core, supports [185 languages and comes with 89 styles](https://highlightjs.org/static/demo/).
+Highlightr is an iOS & macOS syntax highlighter built with Swift. It uses [highlight.js](https://highlightjs.org/) as it core, [demo](https://highlightjs.org/static/demo/).
 
 Takes your lame string with code and returns a NSAttributtedString with proper syntax highlighting.
 
 ![Sample Gif A](https://raw.githubusercontent.com/raspu/Highlightr/master/mix2.gif)
 ![Sample Gif B](https://raw.githubusercontent.com/raspu/Highlightr/master/coding.gif)
+
+*Note:*
+This is a fork of the original
+[Highlightr](https://github.com/raspu/Highlightr)
+which uses Swift Package Manager instead of CocoaPods.
+The current version uses
+[HighlightJS-Swift](https://github.com/SwiftWebResources/HighlightJS-Swift)
+which packages just the default Highlight.js style and language selection.
+
+## Installation
+
+### Requirements
+
+- iOS 12+
+- macOS 10.14+
+
+### Sample Package Manifest
+
+```swift
+// swift-tools-version:5.1
+
+import PackageDescription
+
+let package = Package(
+    name: "HolyCow",
+    dependencies: [
+        .package(url: "git@github.com:helje5/Highlightr.git",
+                 from: "3.0.0")
+    ],
+    targets: [
+        .target(
+            name: "HolyCow",
+            dependencies: [ "Highlightr" ])
+    ]
+)
+```
 
 
 ## Usage
@@ -17,7 +56,7 @@ Highlightr provides two main classes:
 This is the main endpoint, you can use it to convert code strings into NSAttributed strings.
 ```Swift
 	let highlightr = Highlightr()
-	highlightr.setTheme(to: "paraiso-dark")
+	highlightr.setTheme(to: "default") // only default provided right now
 	let code = "let a = 1"
 	// You can omit the second parameter to use automatic language detection.
 	let highlightedCode = highlightr.highlight(code, as: "swift") 
