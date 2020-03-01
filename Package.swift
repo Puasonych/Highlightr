@@ -20,6 +20,7 @@ let package = Package(
   ],
   
   targets: [
-    .target(name: "Highlightr", dependencies: [ "HighlightJS" ])
+    .target(name: "Highlightr", dependencies: [ "HighlightJS" ]),
+    .testTarget(name: "HighlightrTests", dependencies: ["Highlightr"])
   ]
 )
