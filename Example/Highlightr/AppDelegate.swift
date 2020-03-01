@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = SampleCode()
         window?.makeKeyAndVisible()
-        application.isStatusBarHidden = true
+      
+        #if false // DEPRECATED
+            application.isStatusBarHidden = true
+        #endif
         
         return true
     }
