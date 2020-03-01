@@ -1,13 +1,22 @@
-# references:
-# * http://www.objc.io/issue-6/travis-ci.html
-# * https://github.com/supermarin/xcpretty#usage
+language:  generic
 
-language: objective-c
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install:
-# - gem install cocoapods # Since Travis is not always on latest version
-# - pod install --project-directory=Example
+notifications:
+    slack: nozeio:LIFY1Jtkx0FRcLq3u1WliHRZ
+
+matrix:
+    include:
+        - os:   Linux
+          dist: xenial
+          env:  SWIFT_SNAPSHOT_NAME="https://swift.org/builds/swift-5.1-release/ubuntu1604/swift-5.1-RELEASE/swift-5.1-RELEASE-ubuntu16.04.tar.gz"
+          sudo: required
+
+before_install:
+    - ./.travis.d/before-install.sh
+
+install:
+    - ./.travis.d/install.sh
+
 script:
-- set -o pipefail && xcodebuild test -workspace Example/Highlightr.xcworkspace -scheme Highlightr-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
-- pod lib lint
+    - export PATH="$HOME/usr/bin:$PATH"
+    - swift build -c release
+    - swift build -c debug
