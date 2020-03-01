@@ -8,6 +8,8 @@
 
 import Foundation
 import JavaScriptCore
+import HighlightJS
+import Gzip
 
 #if os(OSX)
     import AppKit
@@ -33,7 +35,6 @@ open class Highlightr
 
     private let hljs: JSValue
 
-    private let bundle : Bundle
     private let htmlStart = "<"
     private let spanStart = "span class=\""
     private let spanStartClose = "\">"
@@ -52,15 +53,20 @@ open class Highlightr
         let jsContext = JSContext()!
         let window = JSValue(newObjectIn: jsContext)
         jsContext.setObject(window, forKeyedSubscript: "window" as NSString)
-
-        let bundle = Bundle(for: Highlightr.self)
-        self.bundle = bundle
-        guard let hgPath = highlightPath ?? bundle.path(forResource: "highlight.min", ofType: "js") else
-        {
+      
+        let data = HighlightJS.data_highlight_min_js
+        let unzipped : Data
+        do {
+            unzipped = try data.gunzipped()
+        }
+        catch {
+            return nil
+        }
+      
+        guard let hgJs = String(data: unzipped, encoding: .utf8) else {
             return nil
         }
         
-        let hgJs = try! String.init(contentsOfFile: hgPath)
         let value = jsContext.evaluateScript(hgJs)
         if value?.toBool() != true
         {
@@ -72,7 +78,7 @@ open class Highlightr
         }
         self.hljs = hljs
         
-        guard setTheme(to: "pojoaque") else
+        guard setTheme(to: "default") else
         {
             return nil
         }
@@ -89,13 +95,19 @@ open class Highlightr
     @discardableResult
     open func setTheme(to name: String) -> Bool
     {
-        guard let defTheme = bundle.path(forResource: name+".min", ofType: "css") else
+        guard let data =
+          HighlightJS.resourceNamed("styles/\(name).min.css") else
         {
             return false
         }
-        let themeString = try! String.init(contentsOfFile: defTheme)
-        theme =  Theme(themeString: themeString)
-
+        guard let unzipped = try? data.gunzipped() else { return false }
+        
+        guard let themeString = String(data: unzipped, encoding: .utf8) else
+        {
+            return false
+        }
+        
+        theme = Theme(themeString: themeString)
         
         return true
     }
@@ -156,13 +168,7 @@ open class Highlightr
      */
     open func availableThemes() -> [String]
     {
-        let paths = bundle.paths(forResourcesOfType: "css", inDirectory: nil) as [NSString]
-        var result = [String]()
-        for path in paths {
-            result.append(path.lastPathComponent.replacingOccurrences(of: ".min.css", with: ""))
-        }
-        
-        return result
+        return [ "default" ]
     }
     
     /**

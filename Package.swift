@@ -16,11 +16,13 @@ let package = Package(
   
   dependencies: [
     .package(url: "https://github.com/SwiftWebResources/HighlightJS-Swift.git",
-             from: "9.18.1")
+             from: "9.18.1"),
+    .package(url: "https://github.com/1024jp/GzipSwift.git",
+             from: "5.1.1")
   ],
   
   targets: [
-    .target(name: "Highlightr", dependencies: [ "HighlightJS" ]),
+    .target(name: "Highlightr", dependencies: [ "HighlightJS", "Gzip" ]),
     .testTarget(name: "HighlightrTests", dependencies: ["Highlightr"])
   ]
 )

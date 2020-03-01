@@ -9,11 +9,17 @@ final class HighlightrTests: XCTestCase {
           return
         }
         
-      	highlightr.setTheme(to: "paraiso-dark")
+      	let themeOK = highlightr.setTheme(to: "default")
+        XCTAssertTrue(themeOK)
+      
       	let code = "let a = 1"
       	// You can omit the second parameter to use automatic language detection.
       	let highlightedCode = highlightr.highlight(code, as: "swift")
         XCTAssertNotNil(highlightedCode)
+        
+        if let v = highlightedCode {
+            XCTAssert(v.length == code.count)
+        }
     }
 
     static var allTests = [
