@@ -55,7 +55,7 @@ Highlightr provides two main classes:
 ### Highlightr
 This is the main endpoint, you can use it to convert code strings into NSAttributed strings.
 ```Swift
-	let highlightr = Highlightr()
+	let highlightr = Highlightr()!
 	highlightr.setTheme(to: "default") // only default provided right now
 	let code = "let a = 1"
 	// You can omit the second parameter to use automatic language detection.
