@@ -112,16 +112,16 @@ class SampleCode: UIViewController
             
             let avg = String(format:"%0.4f", time/100)
             let total = String(format:"%0.3f", time)
+
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Performance test", message: "This code was highlighted 100 times. \n It took an average of \(avg) seconds to process each time,\n with a total of \(total) seconds", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(okAction)
             
-            let alert = UIAlertController(title: "Performance test", message: "This code was highlighted 100 times. \n It took an average of \(avg) seconds to process each time,\n with a total of \(total) seconds", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(okAction)
-            
-            DispatchQueue.main.async(execute: {
                 self.activityIndicator.isHidden = true
                 self.activityIndicator.stopAnimating()
                 self.present(alert, animated: true, completion: nil)
-            })
+            }
         }
         
     }
