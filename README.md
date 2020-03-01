@@ -5,7 +5,7 @@
 
 *SPM Branch*: 2020-03-01: WIP to convert this to SwiftPM.
 
-Highlightr is an iOS & macOS syntax highlighter built with Swift. It uses [highlight.js](https://highlightjs.org/) as it core, [demo](https://highlightjs.org/static/demo/).
+Highlightr is an iOS & macOS syntax highlighter built with Swift. It uses [highlight.js](https://highlightjs.org/) as its core, [demo](https://highlightjs.org/static/demo/).
 
 Takes your lame string with code and returns a NSAttributtedString with proper syntax highlighting.
 
