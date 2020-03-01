@@ -10,6 +10,8 @@ import Foundation
 
 #if os(OSX)
     import AppKit
+#else
+    import UIKit
 #endif
 
 #if swift(>=4.2)

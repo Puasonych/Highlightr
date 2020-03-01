@@ -13,6 +13,8 @@ import Gzip
 
 #if os(OSX)
     import AppKit
+#else
+    import UIKit
 #endif
 
 /// Utility class for generating a highlighted NSAttributedString from a String.
