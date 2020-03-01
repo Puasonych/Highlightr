@@ -40,4 +40,5 @@ Carthage
 # hh
 Package.resolved
 .build
+.swiftpm
 
