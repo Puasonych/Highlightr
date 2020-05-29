@@ -155,12 +155,7 @@ open class CodeAttributedString : NSTextStorage
     }
 
     func highlight(_ range: NSRange)
-    {
-        if(language == nil)
-        {
-            return;
-        }
-        
+    {   
         if let highlightDelegate = highlightDelegate
         {
             let shouldHighlight : Bool? = highlightDelegate.shouldHighlight?(range)
@@ -175,7 +170,7 @@ open class CodeAttributedString : NSTextStorage
         let line = string.substring(with: range)
         DispatchQueue.global().async
         {
-            let tmpStrg = self.highlightr.highlight(line, as: self.language!)
+            let tmpStrg = self.highlightr.highlight(line, as: self.language)
             DispatchQueue.main.async(execute: {
                 //Checks to see if this highlighting is still valid.
                 if((range.location + range.length) > self.stringStorage.length)
